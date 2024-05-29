@@ -1,20 +1,38 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { View, Text } from 'react-native'
+import React from 'react'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import HelloScreen from './screens/HelloScreen';
+import SaveScreen from "./screens/SaveScreen";
+import { NavigationContainer } from '@react-navigation/native';
+import ListScreen from './screens/ListScreen';
+import { Feather } from '@expo/vector-icons';
 
-export default function App() {
+import { FontAwesome } from '@expo/vector-icons';
+
+const Tab = createBottomTabNavigator();
+
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <NavigationContainer>
+    <Tab.Navigator screenOptions={{
+      tabBarShowLabel: false,
+      tabBarActiveTintColor:"purple"
+    }}>
+      <Tab.Screen 
+          name="Home" 
+          component={HelloScreen} 
+          options={{headerShown:false, tabBarIcon: () => <Feather name="book" size={24} color="#6B53FF" />}}/>
+      <Tab.Screen 
+          name="Saved Items" 
+          component={SaveScreen} 
+          options={{headerShown:false, tabBarIcon:() => <Feather name="bookmark" size={24} color="#6B53FF" />}}/>
+      <Tab.Screen 
+          name="List" 
+          component={ListScreen} 
+          options={{headerShown:false, tabBarIcon:() => <FontAwesome name="list" size={24} color="#6B53FF" />}}/>
+    </Tab.Navigator>
+    </NavigationContainer>
+  )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App
